@@ -1,0 +1,3956 @@
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 1/8
+
+    Contents
+
+    1. Google Font
+    2. CSS Reset
+    3. CSS Variables
+    4. Dark Theme Variables
+    5. Base Styles
+    6. Typography
+    7. Layout
+    8. Utility Classes
+==================================================*/
+
+
+/*==================================================
+1. GOOGLE FONT
+==================================================*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+
+/*==================================================
+2. CSS RESET
+==================================================*/
+
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+    scroll-padding-top:90px;
+}
+
+body{
+    min-height:100vh;
+}
+
+img,
+picture,
+svg,
+video,
+canvas{
+    display:block;
+    max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+ul,
+ol{
+    list-style:none;
+}
+
+
+/*==================================================
+3. CSS VARIABLES
+==================================================*/
+
+:root{
+
+    /* Colors */
+
+    --color-bg:#ffffff;
+    --color-surface:#f8fafc;
+
+    --color-text:#111827;
+    --color-text-light:#6b7280;
+
+    --color-border:#e5e7eb;
+
+    --color-primary:#2563eb;
+    --color-primary-hover:#1d4ed8;
+
+    --color-success:#16a34a;
+    --color-warning:#d97706;
+    --color-danger:#dc2626;
+
+    --color-white:#ffffff;
+
+
+    /* Typography */
+
+    --font-family:"Inter",sans-serif;
+
+    --fs-xs:.75rem;
+    --fs-sm:.875rem;
+    --fs-base:1rem;
+    --fs-lg:1.125rem;
+    --fs-xl:1.25rem;
+    --fs-2xl:1.5rem;
+    --fs-3xl:2rem;
+    --fs-4xl:3rem;
+    --fs-5xl:4rem;
+
+    --line-height:1.7;
+
+
+    /* Font Weight */
+
+    --fw-regular:400;
+    --fw-medium:500;
+    --fw-semibold:600;
+    --fw-bold:700;
+    --fw-black:800;
+
+
+    /* Radius */
+
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:20px;
+    --radius-xl:28px;
+    --radius-pill:999px;
+
+
+    /* Shadow */
+
+    --shadow-sm:
+        0 2px 8px rgba(15,23,42,.06);
+
+    --shadow-md:
+        0 10px 30px rgba(15,23,42,.10);
+
+    --shadow-lg:
+        0 24px 60px rgba(15,23,42,.14);
+
+
+    /* Transition */
+
+    --transition:
+        .25s ease;
+
+
+    /* Layout */
+
+    --container-width:1180px;
+
+    --section-padding:100px;
+
+}
+
+
+/*==================================================
+4. DARK THEME
+==================================================*/
+
+body.dark{
+
+    --color-bg:#0f172a;
+
+    --color-surface:#1e293b;
+
+    --color-text:#f8fafc;
+
+    --color-text-light:#cbd5e1;
+
+    --color-border:#334155;
+
+    --shadow-sm:
+        0 2px 10px rgba(0,0,0,.35);
+
+    --shadow-md:
+        0 10px 30px rgba(0,0,0,.42);
+
+    --shadow-lg:
+        0 25px 60px rgba(0,0,0,.50);
+
+}
+
+
+/*==================================================
+5. BASE STYLES
+==================================================*/
+
+body{
+
+    font-family:var(--font-family);
+
+    font-size:var(--fs-base);
+
+    line-height:var(--line-height);
+
+    color:var(--color-text);
+
+    background:var(--color-bg);
+
+    transition:
+
+        background .3s ease,
+
+        color .3s ease;
+
+    text-rendering:optimizeLegibility;
+
+    -webkit-font-smoothing:antialiased;
+
+}
+
+::selection{
+
+    background:var(--color-primary);
+
+    color:white;
+
+}
+
+section{
+
+    padding:var(--section-padding) 0;
+
+}
+
+.container{
+
+    width:min(92%,var(--container-width));
+
+    margin-inline:auto;
+
+}
+
+
+/*==================================================
+6. TYPOGRAPHY
+==================================================*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+
+    color:var(--color-text);
+
+    font-weight:var(--fw-bold);
+
+    line-height:1.2;
+
+    letter-spacing:-.03em;
+
+}
+
+h1{
+
+    font-size:clamp(3rem,6vw,4.5rem);
+
+}
+
+h2{
+
+    font-size:clamp(2rem,4vw,3rem);
+
+}
+
+h3{
+
+    font-size:1.5rem;
+
+}
+
+h4{
+
+    font-size:1.2rem;
+
+}
+
+p{
+
+    color:var(--color-text-light);
+
+    margin-bottom:1rem;
+
+}
+
+strong{
+
+    color:var(--color-text);
+
+}
+
+small{
+
+    color:var(--color-text-light);
+
+}
+
+
+/*==================================================
+7. LAYOUT
+==================================================*/
+
+.grid{
+
+    display:grid;
+
+}
+
+.flex{
+
+    display:flex;
+
+}
+
+.flex-center{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.flex-between{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+.flex-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+/*==================================================
+8. UTILITY CLASSES
+==================================================*/
+
+/* Margin Top */
+
+.mt-1{margin-top:.75rem;}
+.mt-2{margin-top:1.5rem;}
+.mt-3{margin-top:2.25rem;}
+.mt-4{margin-top:3rem;}
+.mt-5{margin-top:4rem;}
+
+/* Margin Bottom */
+
+.mb-1{margin-bottom:.75rem;}
+.mb-2{margin-bottom:1.5rem;}
+.mb-3{margin-bottom:2.25rem;}
+.mb-4{margin-bottom:3rem;}
+.mb-5{margin-bottom:4rem;}
+
+/* Padding */
+
+.py-1{padding-block:1rem;}
+.py-2{padding-block:2rem;}
+.py-3{padding-block:3rem;}
+.py-4{padding-block:4rem;}
+
+.px-1{padding-inline:1rem;}
+.px-2{padding-inline:2rem;}
+
+/* Width */
+
+.w-100{
+    width:100%;
+}
+
+/* Max Width */
+
+.max-600{
+    max-width:600px;
+}
+
+.max-700{
+    max-width:700px;
+}
+
+.max-800{
+    max-width:800px;
+}
+
+.max-900{
+    max-width:900px;
+}
+
+/* Rounded */
+
+.rounded-sm{
+    border-radius:var(--radius-sm);
+}
+
+.rounded-md{
+    border-radius:var(--radius-md);
+}
+
+.rounded-lg{
+    border-radius:var(--radius-lg);
+}
+
+.rounded-xl{
+    border-radius:var(--radius-xl);
+}
+
+/* Shadow */
+
+.shadow-sm{
+    box-shadow:var(--shadow-sm);
+}
+
+.shadow-md{
+    box-shadow:var(--shadow-md);
+}
+
+.shadow-lg{
+    box-shadow:var(--shadow-lg);
+}
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 2/8
+
+    Contents
+
+    9. Header
+    10. Navbar
+    11. Logo
+    12. Navigation Links
+    13. Navigation Actions
+    14. Icon Buttons
+    15. Mobile Menu
+    16. Sticky Header
+==================================================*/
+
+
+/*==================================================
+9. HEADER
+==================================================*/
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    z-index:1000;
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(16px);
+
+    -webkit-backdrop-filter:blur(16px);
+
+    border-bottom:1px solid transparent;
+
+    transition:
+
+        background .3s ease,
+
+        border-color .3s ease,
+
+        box-shadow .3s ease,
+
+        transform .3s ease;
+
+}
+
+body.dark .header{
+
+    background:rgba(15,23,42,.82);
+
+}
+
+.header.scrolled{
+
+    border-color:var(--color-border);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.header.hide{
+
+    transform:translateY(-100%);
+
+}
+
+
+/*==================================================
+10. NAVBAR
+==================================================*/
+
+.navbar{
+
+    height:76px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:40px;
+
+}
+
+.navbar>*{
+
+    flex-shrink:0;
+
+}
+
+
+/*==================================================
+11. LOGO
+==================================================*/
+
+.logo{
+
+    font-size:1.4rem;
+
+    font-weight:var(--fw-black);
+
+    letter-spacing:-.03em;
+
+    color:var(--color-text);
+
+    transition:.25s;
+
+    white-space:nowrap;
+
+}
+
+.logo:hover{
+
+    color:var(--color-primary);
+
+}
+
+
+/*==================================================
+12. NAVIGATION LINKS
+==================================================*/
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:2rem;
+
+    flex:1;
+
+}
+
+.nav-links li{
+
+    position:relative;
+
+}
+
+.nav-links a{
+
+    position:relative;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    height:40px;
+
+    font-size:.96rem;
+
+    font-weight:var(--fw-medium);
+
+    color:var(--color-text-light);
+
+    transition:var(--transition);
+
+}
+
+.nav-links a:hover{
+
+    color:var(--color-text);
+
+}
+
+.nav-links a.active{
+
+    color:var(--color-primary);
+
+    font-weight:var(--fw-semibold);
+
+}
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:-4px;
+
+    width:0;
+
+    height:2px;
+
+    border-radius:999px;
+
+    background:var(--color-primary);
+
+    transform:translateX(-50%);
+
+    transition:.25s;
+
+}
+
+.nav-links a:hover::after,
+
+.nav-links a.active::after{
+
+    width:100%;
+
+}
+
+
+/*==================================================
+13. NAVIGATION ACTIONS
+==================================================*/
+
+.nav-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.75rem;
+
+}
+
+
+/*==================================================
+14. ICON BUTTONS
+==================================================*/
+
+.icon-button{
+
+    width:44px;
+
+    height:44px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    border:1px solid var(--color-border);
+
+    background:var(--color-surface);
+
+    color:var(--color-text);
+
+    transition:.25s;
+
+}
+
+.icon-button i{
+
+    font-size:1rem;
+
+    transition:.25s;
+
+}
+
+.icon-button:hover{
+
+    transform:translateY(-2px);
+
+    border-color:var(--color-primary);
+
+    color:var(--color-primary);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.icon-button:active{
+
+    transform:scale(.95);
+
+}
+
+
+/*==================================================
+15. MOBILE MENU BUTTON
+==================================================*/
+
+.mobile-menu-btn{
+
+    display:none;
+
+}
+
+
+/*==================================================
+16. MOBILE NAVIGATION
+==================================================*/
+
+@media (max-width:768px){
+
+    .navbar{
+
+        height:70px;
+
+        gap:16px;
+
+    }
+
+    .mobile-menu-btn{
+
+        display:flex;
+
+    }
+
+    .nav-links{
+
+        position:fixed;
+
+        top:70px;
+
+        left:0;
+
+        width:100%;
+
+        background:var(--color-bg);
+
+        border-top:1px solid var(--color-border);
+
+        box-shadow:var(--shadow-md);
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:0;
+
+        padding:16px 24px;
+
+        transform:translateY(-120%);
+
+        opacity:0;
+
+        pointer-events:none;
+
+        transition:
+
+            transform .3s ease,
+
+            opacity .3s ease;
+
+        z-index:999;
+
+    }
+
+    body.dark .nav-links{
+
+        background:var(--color-bg);
+
+    }
+
+    .nav-links.active{
+
+        transform:translateY(0);
+
+        opacity:1;
+
+        pointer-events:auto;
+
+    }
+
+    .nav-links li{
+
+        width:100%;
+
+    }
+
+    .nav-links a{
+
+        width:100%;
+
+        height:52px;
+
+        justify-content:flex-start;
+
+        border-bottom:1px solid var(--color-border);
+
+    }
+
+    .nav-links li:last-child a{
+
+        border-bottom:none;
+
+    }
+
+    .nav-links a::after{
+
+        display:none;
+
+    }
+
+}
+
+
+/*==================================================
+17. DESKTOP ONLY
+==================================================*/
+
+@media (min-width:769px){
+
+    .nav-links{
+
+        transform:none !important;
+
+        opacity:1 !important;
+
+        pointer-events:auto !important;
+
+    }
+
+}
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 3/8
+
+    Contents
+
+    18. Hero
+    19. Hero Small
+    20. Hero Content
+    21. Hero Text
+    22. Hero Image
+    23. Hero Buttons
+    24. Hero Stats
+    25. Section Header
+==================================================*/
+
+
+/*==================================================
+18. HERO
+==================================================*/
+
+.hero{
+
+    min-height:calc(100vh - 76px);
+
+    display:flex;
+
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+.hero-content{
+
+    display:grid;
+
+    grid-template-columns:1.2fr .8fr;
+
+    align-items:center;
+
+    gap:5rem;
+
+}
+
+
+/*==================================================
+19. HERO SMALL
+==================================================*/
+
+.hero-small{
+
+    min-height:auto;
+
+    padding:140px 0 90px;
+
+}
+
+.page-title{
+
+    max-width:900px;
+
+    margin:1.5rem auto;
+
+    text-align:center;
+
+}
+
+.hero-small .section-description{
+
+    margin-inline:auto;
+
+}
+
+
+/*==================================================
+20. HERO TEXT
+==================================================*/
+
+.hero-text{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.hero-tag,
+
+.section-tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:.5rem;
+
+    padding:.7rem 1.2rem;
+
+    border-radius:999px;
+
+    background:var(--color-surface);
+
+    border:1px solid var(--color-border);
+
+    color:var(--color-primary);
+
+    font-size:.9rem;
+
+    font-weight:var(--fw-semibold);
+
+    margin-bottom:1.5rem;
+
+}
+
+.hero-text h1{
+
+    margin-bottom:1rem;
+
+}
+
+.highlight{
+
+    color:var(--color-primary);
+
+}
+
+.hero-subtitle{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:.8rem;
+
+    font-size:1.2rem;
+
+    color:var(--color-text-light);
+
+    font-weight:var(--fw-medium);
+
+    margin-bottom:1.5rem;
+
+}
+
+.hero-subtitle span{
+
+    color:var(--color-primary);
+
+}
+
+.hero-description{
+
+    max-width:640px;
+
+    font-size:1.05rem;
+
+    margin-bottom:2.5rem;
+
+}
+
+
+/*==================================================
+21. HERO IMAGE
+==================================================*/
+
+.hero-image{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.avatar-wrapper{
+
+    width:380px;
+
+    aspect-ratio:1;
+
+    overflow:hidden;
+
+    border-radius:50%;
+
+    border:8px solid var(--color-bg);
+
+    background:var(--color-surface);
+
+    box-shadow:var(--shadow-lg);
+
+    transition:.35s;
+
+}
+
+body.dark .avatar-wrapper{
+
+    border-color:var(--color-surface);
+
+}
+
+.avatar-wrapper:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.avatar-wrapper img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+
+/*==================================================
+22. HERO BUTTONS
+==================================================*/
+
+.hero-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:1rem;
+
+    margin-bottom:3rem;
+
+}
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:.7rem;
+
+    padding:.9rem 1.6rem;
+
+    border-radius:999px;
+
+    font-weight:var(--fw-semibold);
+
+    transition:.25s;
+
+}
+
+.btn-primary{
+
+    background:var(--color-primary);
+
+    color:white;
+
+}
+
+.btn-primary:hover{
+
+    background:var(--color-primary-hover);
+
+    transform:translateY(-2px);
+
+}
+
+.btn-secondary{
+
+    background:var(--color-surface);
+
+    color:var(--color-text);
+
+    border:1px solid var(--color-border);
+
+}
+
+.btn-secondary:hover{
+
+    border-color:var(--color-primary);
+
+    color:var(--color-primary);
+
+    transform:translateY(-2px);
+
+}
+
+.btn-outline{
+
+    background:transparent;
+
+    border:1px solid var(--color-border);
+
+    color:var(--color-text);
+
+}
+
+.btn-outline:hover{
+
+    border-color:var(--color-primary);
+
+    color:var(--color-primary);
+
+    transform:translateY(-2px);
+
+}
+
+
+/*==================================================
+23. HERO STATS
+==================================================*/
+
+.hero-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:1rem;
+
+    max-width:520px;
+
+}
+
+.stat-card{
+
+    padding:1.5rem;
+
+    text-align:center;
+
+    border-radius:var(--radius-lg);
+
+    background:var(--color-surface);
+
+    border:1px solid var(--color-border);
+
+    transition:.3s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.stat-card h3{
+
+    font-size:2rem;
+
+    color:var(--color-primary);
+
+    margin-bottom:.3rem;
+
+}
+
+.stat-card p{
+
+    margin:0;
+
+    font-size:.95rem;
+
+}
+
+
+/*==================================================
+24. SECTION HEADER
+==================================================*/
+
+.section-header{
+
+    max-width:820px;
+
+    margin:0 auto 4rem;
+
+    text-align:center;
+
+}
+
+.section-title{
+
+    margin-bottom:1rem;
+
+}
+
+.section-description{
+
+    max-width:700px;
+
+    margin-inline:auto;
+
+    margin-bottom:0;
+
+    font-size:1.05rem;
+
+}
+
+
+/*==================================================
+25. BREADCRUMB
+==================================================*/
+
+.breadcrumb{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:.8rem;
+
+    margin-top:2rem;
+
+    color:var(--color-text-light);
+
+    font-size:.95rem;
+
+}
+
+.breadcrumb a{
+
+    transition:.25s;
+
+}
+
+.breadcrumb a:hover{
+
+    color:var(--color-primary);
+
+}
+
+.breadcrumb strong{
+
+    color:var(--color-text);
+
+}
+
+
+/*==================================================
+26. RESPONSIVE HERO
+==================================================*/
+
+@media (max-width:992px){
+
+    .hero{
+
+        min-height:auto;
+
+        padding:100px 0;
+
+    }
+
+    .hero-content{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+        gap:4rem;
+
+    }
+
+    .hero-text{
+
+        align-items:center;
+
+    }
+
+    .hero-description{
+
+        margin-inline:auto;
+
+    }
+
+    .hero-buttons{
+
+        justify-content:center;
+
+    }
+
+    .hero-stats{
+
+        margin-inline:auto;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .hero{
+
+        padding:70px 0;
+
+    }
+
+    .hero-small{
+
+        padding:110px 0 70px;
+
+    }
+
+    .avatar-wrapper{
+
+        width:280px;
+
+    }
+
+    .hero-subtitle{
+
+        justify-content:center;
+
+        font-size:1.05rem;
+
+    }
+
+    .hero-stats{
+
+        grid-template-columns:1fr;
+
+        max-width:320px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .avatar-wrapper{
+
+        width:220px;
+
+    }
+
+    .hero-buttons{
+
+        width:100%;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .hero-buttons .btn{
+
+        width:100%;
+
+    }
+
+}
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 4/8
+
+    Contents
+
+    26. Common Cards
+    27. Card Grid
+    28. Blog / Note / Experience Cards
+    29. Project Cards
+    30. Badges & Tags
+    31. Card Footer
+    32. Section Action
+    33. Empty State
+==================================================*/
+
+
+/*==================================================
+26. COMMON CARDS
+==================================================*/
+
+.card-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+
+    gap:2rem;
+
+}
+
+.blog-card,
+.project-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+    background:var(--color-bg);
+
+    border:1px solid var(--color-border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+
+}
+
+body.dark .blog-card,
+body.dark .project-card{
+
+    background:var(--color-surface);
+
+}
+
+.blog-card:hover,
+.project-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-md);
+
+    border-color:rgba(37,99,235,.25);
+
+}
+
+
+/*==================================================
+27. CARD IMAGE
+==================================================*/
+
+.blog-card img,
+.project-card img{
+
+    width:100%;
+
+    aspect-ratio:16 / 9;
+
+    object-fit:cover;
+
+    transition:transform .4s ease;
+
+}
+
+.blog-card:hover img,
+.project-card:hover img{
+
+    transform:scale(1.05);
+
+}
+
+
+/*==================================================
+28. CARD CONTENT
+==================================================*/
+
+.card-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    flex:1;
+
+    padding:1.75rem;
+
+}
+
+.card-date{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    width:max-content;
+
+    padding:.35rem .75rem;
+
+    margin-bottom:1rem;
+
+    border-radius:999px;
+
+    background:rgba(37,99,235,.08);
+
+    color:var(--color-primary);
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+}
+
+.card-content h3{
+
+    margin-bottom:1rem;
+
+    font-size:1.35rem;
+
+    line-height:1.35;
+
+}
+
+.card-content p{
+
+    flex:1;
+
+    margin-bottom:1.5rem;
+
+}
+
+
+/*==================================================
+29. TEXT LINK
+==================================================*/
+
+.text-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:.5rem;
+
+    width:max-content;
+
+    font-weight:600;
+
+    color:var(--color-primary);
+
+    transition:.25s;
+
+}
+
+.text-link:hover{
+
+    gap:.8rem;
+
+}
+
+
+/*==================================================
+30. PROJECT TAGS
+==================================================*/
+
+.project-tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:.75rem;
+
+    margin-bottom:1.75rem;
+
+}
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:.45rem .9rem;
+
+    border-radius:999px;
+
+    background:var(--color-surface);
+
+    border:1px solid var(--color-border);
+
+    color:var(--color-text);
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+}
+
+body.dark .badge{
+
+    background:rgba(255,255,255,.04);
+
+}
+
+
+/*==================================================
+31. CARD FOOTER
+==================================================*/
+
+.course-footer{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:1rem;
+
+    margin-top:auto;
+
+}
+
+.course-footer .btn{
+
+    flex:1;
+
+    padding:.8rem 1rem;
+
+    font-size:.92rem;
+
+}
+
+
+/*==================================================
+32. SECTION ACTION
+==================================================*/
+
+.section-action{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:1rem;
+
+    margin-top:3rem;
+
+}
+
+
+/*==================================================
+33. EMPTY STATE
+==================================================*/
+
+.empty-state{
+
+    padding:5rem 2rem;
+
+    text-align:center;
+
+    border:2px dashed var(--color-border);
+
+    border-radius:var(--radius-xl);
+
+}
+
+.empty-state h3{
+
+    margin-bottom:1rem;
+
+}
+
+.empty-state p{
+
+    max-width:520px;
+
+    margin-inline:auto;
+
+}
+
+
+/*==================================================
+34. CARD HOVER EFFECTS
+==================================================*/
+
+.blog-card,
+.project-card{
+
+    position:relative;
+
+}
+
+.blog-card::before,
+.project-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:inherit;
+
+    pointer-events:none;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            rgba(37,99,235,.06),
+
+            transparent 35%
+
+        );
+
+    opacity:0;
+
+    transition:.3s;
+
+}
+
+.blog-card:hover::before,
+.project-card:hover::before{
+
+    opacity:1;
+
+}
+
+
+/*==================================================
+35. IMAGE PLACEHOLDER
+==================================================*/
+
+.blog-card img,
+.project-card img{
+
+    background:#e5e7eb;
+
+}
+
+body.dark .blog-card img,
+body.dark .project-card img{
+
+    background:#334155;
+
+}
+
+
+/*==================================================
+36. RESPONSIVE
+==================================================*/
+
+@media (max-width:992px){
+
+    .card-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .card-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .course-footer{
+
+        flex-direction:column;
+
+    }
+
+    .course-footer .btn{
+
+        width:100%;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .card-content{
+
+        padding:1.4rem;
+
+    }
+
+    .card-content h3{
+
+        font-size:1.2rem;
+
+    }
+
+    .project-tags{
+
+        gap:.5rem;
+
+    }
+
+}
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 5/8
+
+    Contents
+
+    37. About Section
+    38. Achievement Section
+    39. Contact Section
+    40. Footer
+    41. Back To Top
+==================================================*/
+
+
+/*==================================================
+37. ABOUT SECTION
+==================================================*/
+
+.about-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:2rem;
+
+}
+
+.about-card{
+
+    padding:2rem;
+
+    background:var(--color-surface);
+
+    border:1px solid var(--color-border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.3s;
+
+}
+
+.about-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.about-card h3{
+
+    margin-bottom:1rem;
+
+    font-size:1.3rem;
+
+}
+
+.about-card p{
+
+    margin:0;
+
+}
+
+
+/*==================================================
+38. ACHIEVEMENT SECTION
+==================================================*/
+
+.achievement-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:2rem;
+
+}
+
+.achievement-card{
+
+    padding:2rem;
+
+    text-align:center;
+
+    background:var(--color-bg);
+
+    border:1px solid var(--color-border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.3s;
+
+}
+
+body.dark .achievement-card{
+
+    background:var(--color-surface);
+
+}
+
+.achievement-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.achievement-icon{
+
+    width:72px;
+
+    height:72px;
+
+    margin:0 auto 1.5rem;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.10);
+
+    font-size:2rem;
+
+}
+
+.achievement-card h3{
+
+    margin-bottom:.8rem;
+
+}
+
+.achievement-card p{
+
+    margin:0;
+
+}
+
+
+/*==================================================
+39. CONTACT
+==================================================*/
+
+.contact-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:1.5rem;
+
+}
+
+.contact-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    gap:1rem;
+
+    padding:2rem;
+
+    background:var(--color-bg);
+
+    border:1px solid var(--color-border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.3s;
+
+}
+
+body.dark .contact-card{
+
+    background:var(--color-surface);
+
+}
+
+.contact-card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:rgba(37,99,235,.35);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.contact-card i{
+
+    font-size:2rem;
+
+    color:var(--color-primary);
+
+}
+
+.contact-card h3{
+
+    margin:0;
+
+    font-size:1.2rem;
+
+}
+
+.contact-card p{
+
+    margin:0;
+
+    font-size:.95rem;
+
+}
+
+.contact-card:hover i{
+
+    transform:scale(1.1);
+
+}
+
+
+/*==================================================
+40. FOOTER
+==================================================*/
+
+.footer{
+
+    margin-top:5rem;
+
+    padding:3rem 0;
+
+    border-top:1px solid var(--color-border);
+
+    background:var(--color-surface);
+
+}
+
+.footer-content{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:3rem;
+
+}
+
+.footer-left{
+
+    flex:1;
+
+}
+
+.footer-left h3{
+
+    margin-bottom:.75rem;
+
+}
+
+.footer-left p{
+
+    margin:0;
+
+}
+
+.footer-right{
+
+    text-align:right;
+
+}
+
+.footer-right p{
+
+    margin-bottom:.5rem;
+
+}
+
+
+/*==================================================
+41. BACK TO TOP
+==================================================*/
+
+.back-to-top{
+
+    position:fixed;
+
+    right:1.5rem;
+
+    bottom:1.5rem;
+
+    width:52px;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    border:none;
+
+    background:var(--color-primary);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    box-shadow:var(--shadow-lg);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(20px);
+
+    transition:.3s;
+
+    z-index:999;
+
+}
+
+.back-to-top.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+.back-to-top:hover{
+
+    background:var(--color-primary-hover);
+
+    transform:translateY(-4px);
+
+}
+
+
+/*==================================================
+42. COMMON SPACING
+==================================================*/
+
+.section{
+
+    padding:6rem 0;
+
+}
+
+.section-alt{
+
+    background:var(--color-surface);
+
+}
+
+.section-alt .about-card,
+
+.section-alt .achievement-card,
+
+.section-alt .contact-card{
+
+    background:var(--color-bg);
+
+}
+
+body.dark .section-alt{
+
+    background:#162033;
+
+}
+
+
+/*==================================================
+43. RESPONSIVE
+==================================================*/
+
+@media (max-width:992px){
+
+    .about-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .footer-content{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        text-align:center;
+
+    }
+
+    .footer-right{
+
+        text-align:center;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .achievement-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .contact-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .back-to-top{
+
+        right:1rem;
+
+        bottom:1rem;
+
+        width:48px;
+
+        height:48px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .about-card,
+
+    .achievement-card,
+
+    .contact-card{
+
+        padding:1.5rem;
+
+    }
+
+    .footer{
+
+        padding:2rem 0;
+
+    }
+
+}
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 6/8
+
+    Contents
+
+    44. Reveal Animation
+    45. Fade Animations
+    46. Hover Effects
+    47. Loading Skeleton
+    48. Backdrop & Blur
+    49. Focus States
+    50. Accessibility
+    51. Print Styles
+==================================================*/
+
+
+/*==================================================
+44. REVEAL ANIMATION
+==================================================*/
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+
+}
+
+.reveal.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+.reveal-left{
+
+    opacity:0;
+
+    transform:translateX(-40px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+
+}
+
+.reveal-left.show{
+
+    opacity:1;
+
+    transform:translateX(0);
+
+}
+
+.reveal-right{
+
+    opacity:0;
+
+    transform:translateX(40px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+
+}
+
+.reveal-right.show{
+
+    opacity:1;
+
+    transform:translateX(0);
+
+}
+
+.reveal-scale{
+
+    opacity:0;
+
+    transform:scale(.95);
+
+    transition:
+
+        opacity .7s ease,
+
+        transform .7s ease;
+
+}
+
+.reveal-scale.show{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+
+/*==================================================
+45. KEYFRAME ANIMATIONS
+==================================================*/
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.9);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+.fade-up{
+
+    animation:fadeUp .8s ease both;
+
+}
+
+.fade-down{
+
+    animation:fadeDown .8s ease both;
+
+}
+
+.fade-in{
+
+    animation:fadeIn .8s ease both;
+
+}
+
+.zoom-in{
+
+    animation:zoomIn .8s ease both;
+
+}
+
+
+/*==================================================
+46. COMMON HOVER EFFECTS
+==================================================*/
+
+.hover-lift{
+
+    transition:.3s;
+
+}
+
+.hover-lift:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.hover-scale{
+
+    transition:.3s;
+
+}
+
+.hover-scale:hover{
+
+    transform:scale(1.03);
+
+}
+
+.hover-shadow{
+
+    transition:.3s;
+
+}
+
+.hover-shadow:hover{
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.hover-primary{
+
+    transition:.3s;
+
+}
+
+.hover-primary:hover{
+
+    color:var(--color-primary);
+
+}
+
+
+/*==================================================
+47. IMAGE EFFECTS
+==================================================*/
+
+.image-hover{
+
+    overflow:hidden;
+
+}
+
+.image-hover img{
+
+    transition:.45s;
+
+}
+
+.image-hover:hover img{
+
+    transform:scale(1.06);
+
+}
+
+.image-rounded{
+
+    border-radius:var(--radius-lg);
+
+}
+
+.image-shadow{
+
+    box-shadow:var(--shadow-md);
+
+}
+
+
+/*==================================================
+48. LOADING SKELETON
+==================================================*/
+
+.skeleton{
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            #f1f5f9 0%,
+
+            #e2e8f0 50%,
+
+            #f1f5f9 100%
+
+        );
+
+    background-size:300% 100%;
+
+    animation:skeleton-loading 1.5s infinite;
+
+}
+
+body.dark .skeleton{
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            #1e293b 0%,
+
+            #334155 50%,
+
+            #1e293b 100%
+
+        );
+
+    background-size:300% 100%;
+
+}
+
+@keyframes skeleton-loading{
+
+    from{
+
+        background-position:100% 0;
+
+    }
+
+    to{
+
+        background-position:-100% 0;
+
+    }
+
+}
+
+
+/*==================================================
+49. GLASS EFFECT
+==================================================*/
+
+.glass{
+
+    background:
+
+        rgba(255,255,255,.75);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.2);
+
+}
+
+body.dark .glass{
+
+    background:
+
+        rgba(30,41,59,.65);
+
+}
+
+
+/*==================================================
+50. FOCUS & ACCESSIBILITY
+==================================================*/
+
+:focus-visible{
+
+    outline:3px solid var(--color-primary);
+
+    outline-offset:4px;
+
+}
+
+button:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}
+
+input,
+
+textarea,
+
+select{
+
+    border:1px solid var(--color-border);
+
+    border-radius:var(--radius-md);
+
+    background:var(--color-bg);
+
+    color:var(--color-text);
+
+}
+
+input:focus,
+
+textarea:focus,
+
+select:focus{
+
+    outline:none;
+
+    border-color:var(--color-primary);
+
+    box-shadow:
+
+        0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+
+/*==================================================
+51. SCROLLBAR
+==================================================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:var(--color-surface);
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#94a3b8;
+
+    border-radius:999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--color-primary);
+
+}
+
+html{
+
+    scrollbar-color:#94a3b8 transparent;
+
+    scrollbar-width:thin;
+
+}
+
+
+/*==================================================
+52. TEXT UTILITIES
+==================================================*/
+
+.text-primary{
+
+    color:var(--color-primary);
+
+}
+
+.text-secondary{
+
+    color:var(--color-text-light);
+
+}
+
+.text-white{
+
+    color:#fff;
+
+}
+
+.text-bold{
+
+    font-weight:700;
+
+}
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-left{
+
+    text-align:left;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+
+/*==================================================
+53. DISPLAY UTILITIES
+==================================================*/
+
+.d-none{
+
+    display:none !important;
+
+}
+
+.d-block{
+
+    display:block;
+
+}
+
+.d-inline{
+
+    display:inline;
+
+}
+
+.d-inline-block{
+
+    display:inline-block;
+
+}
+
+.d-flex{
+
+    display:flex;
+
+}
+
+.align-center{
+
+    align-items:center;
+
+}
+
+.justify-center{
+
+    justify-content:center;
+
+}
+
+.justify-between{
+
+    justify-content:space-between;
+
+}
+
+.flex-wrap{
+
+    flex-wrap:wrap;
+
+}
+
+.gap-1{
+
+    gap:1rem;
+
+}
+
+.gap-2{
+
+    gap:2rem;
+
+}
+
+
+/*==================================================
+54. PRINT
+==================================================*/
+
+@media print{
+
+    .header,
+
+    .footer,
+
+    .back-to-top,
+
+    .mobile-menu-btn,
+
+    .hero-buttons,
+
+    .icon-button{
+
+        display:none !important;
+
+    }
+
+    body{
+
+        background:#fff;
+
+        color:#000;
+
+    }
+
+    .container{
+
+        width:100%;
+
+    }
+
+}
+
+
+/*==================================================
+55. REDUCED MOTION
+==================================================*/
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 7/8
+
+    Contents
+
+    56. Large Desktop
+    57. Laptop
+    58. Tablet
+    59. Mobile
+    60. Small Mobile
+==================================================*/
+
+
+/*==================================================
+56. LARGE DESKTOP
+==================================================*/
+
+@media (min-width:1440px){
+
+    :root{
+
+        --container-width:1320px;
+
+    }
+
+    .hero-content{
+
+        gap:7rem;
+
+    }
+
+    .avatar-wrapper{
+
+        width:430px;
+
+    }
+
+    .card-grid{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+
+/*==================================================
+57. LAPTOP
+==================================================*/
+
+@media (max-width:1200px){
+
+    .container{
+
+        width:min(94%,1100px);
+
+    }
+
+    .hero-content{
+
+        gap:4rem;
+
+    }
+
+    .card-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+/*==================================================
+58. TABLET
+==================================================*/
+
+@media (max-width:992px){
+
+    :root{
+
+        --section-padding:80px;
+
+    }
+
+    html{
+
+        scroll-padding-top:80px;
+
+    }
+
+    .navbar{
+
+        height:72px;
+
+    }
+
+    .hero{
+
+        min-height:auto;
+
+        padding:90px 0;
+
+    }
+
+    .hero-content{
+
+        grid-template-columns:1fr;
+
+        gap:4rem;
+
+        text-align:center;
+
+    }
+
+    .hero-text{
+
+        align-items:center;
+
+    }
+
+    .hero-description{
+
+        margin-inline:auto;
+
+    }
+
+    .hero-buttons{
+
+        justify-content:center;
+
+    }
+
+    .hero-stats{
+
+        margin-inline:auto;
+
+    }
+
+    .about-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .achievement-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .contact-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .footer-content{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .footer-right{
+
+        text-align:center;
+
+    }
+
+}
+
+
+/*==================================================
+59. MOBILE
+==================================================*/
+
+@media (max-width:768px){
+
+    :root{
+
+        --section-padding:70px;
+
+    }
+
+    h1{
+
+        font-size:clamp(2.4rem,9vw,3.4rem);
+
+    }
+
+    h2{
+
+        font-size:2rem;
+
+    }
+
+    h3{
+
+        font-size:1.3rem;
+
+    }
+
+    p{
+
+        font-size:.97rem;
+
+    }
+
+    .navbar{
+
+        height:70px;
+
+    }
+
+    .logo{
+
+        font-size:1.2rem;
+
+    }
+
+    .hero{
+
+        padding:70px 0;
+
+    }
+
+    .hero-small{
+
+        padding:110px 0 60px;
+
+    }
+
+    .hero-content{
+
+        gap:3rem;
+
+    }
+
+    .avatar-wrapper{
+
+        width:260px;
+
+    }
+
+    .hero-buttons{
+
+        width:100%;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .hero-buttons .btn{
+
+        width:100%;
+
+    }
+
+    .hero-stats{
+
+        grid-template-columns:1fr;
+
+        max-width:320px;
+
+    }
+
+    .card-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .achievement-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .contact-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .course-footer{
+
+        flex-direction:column;
+
+    }
+
+    .course-footer .btn{
+
+        width:100%;
+
+    }
+
+    .section-header{
+
+        margin-bottom:3rem;
+
+    }
+
+    .page-title{
+
+        margin:1rem auto;
+
+    }
+
+    .breadcrumb{
+
+        gap:.5rem;
+
+        font-size:.9rem;
+
+    }
+
+    .footer{
+
+        margin-top:3rem;
+
+    }
+
+    .back-to-top{
+
+        right:16px;
+
+        bottom:16px;
+
+        width:48px;
+
+        height:48px;
+
+    }
+
+}
+
+
+/*==================================================
+60. SMALL MOBILE
+==================================================*/
+
+@media (max-width:480px){
+
+    :root{
+
+        --section-padding:60px;
+
+    }
+
+    .container{
+
+        width:92%;
+
+    }
+
+    .navbar{
+
+        height:66px;
+
+    }
+
+    .hero{
+
+        padding:60px 0;
+
+    }
+
+    .hero-small{
+
+        padding:95px 0 50px;
+
+    }
+
+    .avatar-wrapper{
+
+        width:210px;
+
+    }
+
+    .hero-tag,
+
+    .section-tag{
+
+        font-size:.8rem;
+
+        padding:.55rem .95rem;
+
+    }
+
+    .card-content{
+
+        padding:1.35rem;
+
+    }
+
+    .about-card,
+
+    .achievement-card,
+
+    .contact-card{
+
+        padding:1.5rem;
+
+    }
+
+    .icon-button{
+
+        width:42px;
+
+        height:42px;
+
+    }
+
+    .btn{
+
+        padding:.85rem 1.2rem;
+
+        font-size:.95rem;
+
+    }
+
+    .footer{
+
+        padding:2rem 0;
+
+    }
+
+}
+
+
+/*==================================================
+61. LANDSCAPE PHONE
+==================================================*/
+
+@media (max-height:600px) and (orientation:landscape){
+
+    .hero{
+
+        min-height:auto;
+
+        padding:60px 0;
+
+    }
+
+    .avatar-wrapper{
+
+        width:180px;
+
+    }
+
+}
+
+
+/*==================================================
+62. IMAGE SAFETY
+==================================================*/
+
+img{
+
+    max-width:100%;
+
+    height:auto;
+
+}
+
+iframe{
+
+    width:100%;
+
+    max-width:100%;
+
+    border:none;
+
+}
+
+table{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+
+/*==================================================
+63. FINAL RESPONSIVE FIXES
+==================================================*/
+
+*{
+
+    min-width:0;
+
+}
+
+.card-content{
+
+    overflow-wrap:break-word;
+
+}
+
+.hero-description,
+
+.section-description{
+
+    text-wrap:pretty;
+
+}
+
+.page-title{
+
+    text-wrap:balance;
+
+}
+/*==================================================
+    PERSONAL PORTFOLIO WEBSITE
+    File: css/style.css
+    Part 8/8
+
+    Contents
+
+    64. Helpers
+    65. Status Badges
+    66. Divider
+    67. Empty States
+    68. Scroll Offset
+    69. Misc Components
+    70. Final Utilities
+==================================================*/
+
+
+/*==================================================
+64. HELPERS
+==================================================*/
+
+.w-auto{
+    width:auto;
+}
+
+.h-100{
+    height:100%;
+}
+
+.mx-auto{
+    margin-inline:auto;
+}
+
+.ml-auto{
+    margin-left:auto;
+}
+
+.mr-auto{
+    margin-right:auto;
+}
+
+.relative{
+    position:relative;
+}
+
+.absolute{
+    position:absolute;
+}
+
+.overflow-hidden{
+    overflow:hidden;
+}
+
+.round{
+    border-radius:50%;
+}
+
+.cursor-pointer{
+    cursor:pointer;
+}
+
+.pointer-none{
+    pointer-events:none;
+}
+
+
+/*==================================================
+65. STATUS BADGES
+==================================================*/
+
+.badge-primary{
+
+    background:rgba(37,99,235,.12);
+
+    color:var(--color-primary);
+
+    border:none;
+
+}
+
+.badge-success{
+
+    background:rgba(22,163,74,.12);
+
+    color:var(--color-success);
+
+    border:none;
+
+}
+
+.badge-warning{
+
+    background:rgba(217,119,6,.12);
+
+    color:var(--color-warning);
+
+    border:none;
+
+}
+
+.badge-danger{
+
+    background:rgba(220,38,38,.12);
+
+    color:var(--color-danger);
+
+    border:none;
+
+}
+
+
+/*==================================================
+66. DIVIDER
+==================================================*/
+
+.divider{
+
+    width:80px;
+
+    height:4px;
+
+    margin:2rem auto;
+
+    border-radius:999px;
+
+    background:var(--color-primary);
+
+}
+
+.divider-left{
+
+    margin-left:0;
+
+}
+
+.divider-right{
+
+    margin-left:auto;
+
+    margin-right:0;
+
+}
+
+
+/*==================================================
+67. EMPTY STATE
+==================================================*/
+
+.empty-state-icon{
+
+    font-size:3rem;
+
+    margin-bottom:1rem;
+
+    color:var(--color-primary);
+
+}
+
+.empty-state h2{
+
+    margin-bottom:1rem;
+
+}
+
+.empty-state .btn{
+
+    margin-top:2rem;
+
+}
+
+
+/*==================================================
+68. SCROLL OFFSET
+==================================================*/
+
+[id]{
+
+    scroll-margin-top:100px;
+
+}
+
+
+/*==================================================
+69. MISC COMPONENTS
+==================================================*/
+
+/* Horizontal list */
+
+.inline-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:.75rem;
+
+}
+
+/* Card separator */
+
+.card-divider{
+
+    width:100%;
+
+    height:1px;
+
+    background:var(--color-border);
+
+    margin:1.5rem 0;
+
+}
+
+/* Simple label */
+
+.label{
+
+    display:inline-block;
+
+    margin-bottom:.5rem;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    color:var(--color-text-light);
+
+}
+
+/* Simple icon circle */
+
+.icon-circle{
+
+    width:56px;
+
+    height:56px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.1);
+
+    color:var(--color-primary);
+
+    font-size:1.4rem;
+
+}
+
+
+/*==================================================
+70. FINAL UTILITIES
+==================================================*/
+
+.opacity-0{
+
+    opacity:0;
+
+}
+
+.opacity-50{
+
+    opacity:.5;
+
+}
+
+.opacity-75{
+
+    opacity:.75;
+
+}
+
+.opacity-100{
+
+    opacity:1;
+
+}
+
+.transition{
+
+    transition:var(--transition);
+
+}
+
+.rotate{
+
+    transition:transform .3s ease;
+
+}
+
+.rotate:hover{
+
+    transform:rotate(8deg);
+
+}
+
+.scale{
+
+    transition:transform .3s ease;
+
+}
+
+.scale:hover{
+
+    transform:scale(1.04);
+
+}
+
+.shadow-hover{
+
+    transition:.3s;
+
+}
+
+.shadow-hover:hover{
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+
+/*==================================================
+71. SELECTION
+==================================================*/
+
+::selection{
+
+    background:var(--color-primary);
+
+    color:#fff;
+
+}
+
+::-moz-selection{
+
+    background:var(--color-primary);
+
+    color:#fff;
+
+}
+
+
+/*==================================================
+72. SMOOTH MEDIA
+==================================================*/
+
+img,
+video,
+iframe{
+
+    user-select:none;
+
+    -webkit-user-drag:none;
+
+}
+
+
+/*==================================================
+73. FINAL CLEANUP
+==================================================*/
+
+body{
+
+    overflow-x:hidden;
+
+}
+
+section:last-of-type{
+
+    margin-bottom:0;
+
+}
+
+button{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+a{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+/*==================================================
+74. END OF FILE
+==================================================*/
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+/*
+
+██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ ██╗     ██╗ ██████╗
+██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔═══██╗██║     ██║██╔═══██╗
+██████╔╝██║   ██║██████╔╝   ██║   █████╗  ██║   ██║██║     ██║██║   ██║
+██╔═══╝ ██║   ██║██╔══██╗   ██║   ██╔══╝  ██║   ██║██║     ██║██║   ██║
+██║     ╚██████╔╝██║  ██║   ██║   ██║     ╚██████╔╝███████╗██║╚██████╔╝
+╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚══════╝╚═╝ ╚═════╝
+
+Thank you for using this stylesheet.
+Built with ❤️ using HTML, CSS & Vanilla JavaScript.
+
+*/
