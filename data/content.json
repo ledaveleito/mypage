@@ -1,0 +1,256 @@
+{
+  "site": {
+    "name": "Xuan Trong Le",
+    "tagline": "Competitive Programmer · CS & AI Student · Fullstack Learner",
+    "intro": "A national-level competitive programming awardee with strong DS&A fundamentals, seeking to grow in AI/ML and build impactful, robust systems for society.",
+    "avatar": "images/avatar.png",
+    "resume": "resume.pdf"
+  },
+  "about": {
+    "title": "Building software with curiosity and purpose.",
+    "intro": "I love combining mathematics, algorithms, and artificial intelligence to build useful products and continuously improve my problem-solving skills.",
+    "cards": [
+      {
+        "title": "What I Study",
+        "text": "I am interested in Computer Science, Competitive Programming, Artificial Intelligence, and Fullstack Development. I enjoy learning fundamental concepts and applying them to practical projects."
+      },
+      {
+        "title": "What I Enjoy",
+        "text": "Besides coding, I enjoy participating in programming competitions, writing technical notes, exploring new technologies, and sharing knowledge with others."
+      },
+      {
+        "title": "What I Build",
+        "text": "I build personal projects ranging from AI applications to systems and web tools."
+      },
+      {
+        "title": "Future Goals",
+        "text": "My long-term goal is to become a software engineer and do research in Artificial Intelligence while contributing to impactful open-source projects and developing products that solve real-world problems."
+      }
+    ]
+  },
+  "achievements": [
+    {
+      "icon": "🥇",
+      "title": "Vietnam Olympiad in Informatics (VOI)",
+      "summary": "First Prize (2026), Second Prize (2025)"
+    },
+    {
+      "icon": "🥈",
+      "title": "ICPC HCMC Regional 2025",
+      "summary": "Silver Medal (team saocungduoc)"
+    },
+    {
+      "icon": "🥇",
+      "title": "Olympic 30/4",
+      "summary": "2 Gold Medals"
+    },
+    {
+      "icon": "🥇",
+      "title": "Northern Coastal Region Olympiad.",
+      "summary": "1 Gold Medal, 1 Bronze Medal"
+    },
+    {
+      "icon": "🏆",
+      "title": "HCMC Youth Informatics Championship",
+      "summary": "Champion"
+    },
+    {
+      "icon": "🥇",
+      "title": "HSGS Olympiad - VNU",
+      "summary": "1 Gold Medal, 1 Silver Medal"
+    },
+    {
+      "icon": "🎓",
+      "title": "IELTS",
+      "summary": "Overall Band Score 8.0."
+    },
+    {
+      "icon": "🤖",
+      "title": "VOAI",
+      "summary": "IOAI 2026 Team Selection Test Finalist"
+    }
+  ],
+  "experience": [
+    {
+      "id": "volunteer-gen-6-vnoi",
+      "title": "Volunteer Gen 6 - VNOI",
+      "meta": "Sep 2026 – Present",
+      "summary": "Proposed problems, generated test cases, performed testing, and created contests.",
+      "image": "images/experience/exp1.jpg",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "During my time as a volunteer at VNOI (Vietnam Olympiad in Informatics), a non-profit community dedicated to fostering programming skills and competitive programming culture among Vietnamese students, I contributed by proposing problem statements, generating test cases, performing thorough testing, and creating contests. VNOI’s mission is to nurture young talent, provide resources for learning algorithms and data structures, and build a supportive environment for those passionate about informatics. I chose this volunteer role because I wanted to give back to the community, support the next generation of programmers, and strengthen the culture of knowledge-sharing and collaboration in Vietnam’s tech scene."
+        }
+      ]
+    },
+    {
+      "id": "sakura-science",
+      "title": "Member - Sakura Science Club",
+      "meta": "May 2025 – Present",
+      "summary": "Exchange program participant in Japan and active member of a science-focused non-profit organization.",
+      "image": "images/experience/exp2.jpg",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "My exchange journey in Japan was an unforgettable experience. I had the opportunity to visit prestigious universities such as the University of Tokyo, Tokyo Institute of Science, and Waseda University. One of the highlights was meeting Nobel Laureate Takaaki Kajita, whose insights deeply inspired me. I also collaborated on projects and cultural exchanges with friends from Japan, China, Thailand, and Indonesia, which broadened my perspective and strengthened international friendships. Beyond academics, I was amazed by Japan’s cutting-edge technology and innovation, which left a lasting impression on me."
+        },
+        {
+          "type": "heading",
+          "text": "What I gained"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Exposure to world-class universities and research environments",
+            "Inspiration from meeting Nobel Laureate Takaaki Kajita",
+            "Cross-cultural collaboration with peers from multiple Asian countries",
+            "First-hand experience of Japan’s advanced technology and innovation"
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "This journey taught me the value of knowledge-sharing, cultural diversity, and innovation."
+        }
+      ]
+
+    }
+  ],
+  "blogs": [
+    {
+      "id": "my-olympic-ai-roadmap",
+      "title": "Olympic AI Roadmap",
+      "image": "images/blogs/blog1.png",
+      "meta": "Sep 2026",
+      "summary": "A simple roadmap that gathers key knowledge and outlines the learning path for Olympic AI.",
+      "content": [
+        {
+          "type": "link",
+          "text": "Roadmap Link",
+          "url" : "https://bronzed-enquiry-293.notion.site/Olympic-AI-IOAI-Format-Roadmap-3cff1a56e08b80348305d1c0f0720653"
+        },
+        {
+          "type": "paragraph",
+          "text": "The idea for my Olympic AI Roadmap came from my own experience competing in VOAI, where I realized there were very few clear resources or structured learning paths for such a unique competition. After facing the challenge myself, I decided to collect and organize the essential knowledge into a roadmap that could guide future participants."
+        },
+        {
+          "type": "heading",
+          "text": "What I learned"
+        },
+        {
+          "type": "list",
+          "items": [
+            "The importance of having a structured study plan for unusual competitions",
+            "How to synthesize knowledge from scattered resources",
+            "The value of sharing experiences to help others prepare better"
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "From scarcity of resources came the motivation to build a clear path for others."
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "ai-challenge-2026",
+      "title": "CPU-based video keyframe retrieval system",
+      "meta": "Jun 2026 - Sep 2026",
+      "summary": "A lightweight system for keyframe matching with descriptive search.",
+      "image": "images/projects/project1.png",
+      "githubUrl": "https://github.com/ledaveleito/AI-Challenge-HCMC-2026---gicungduoc_2",
+      "tags": [
+        "CLIP",
+        "Usearch",
+        "Hugging Face Transformer"
+      ]
+    },
+    {
+      "id": "ai-riser-2026",
+      "title": "Smart Education Agent Website",
+      "meta": "Jul 2026 - Aug 2026",
+      "summary": "A smart learning system that helps students build good study habits, stay healthy with daily rhythm balance, and use AI support to prepare for the National High School Exam",
+      "image": "images/projects/project2.png",
+      "githubUrl": "https://github.com/thefl3ss/SEA",
+      "tags": [
+        "Stitch",
+        "Google AI Studio",
+        "Antigravity"
+      ]
+    },
+    {
+      "id": "pima-2026",
+      "title": "Multi-Armed Bandit",
+      "meta": "Aug 2026",
+      "summary": "The team implemented and compared Reinforcement Learning algorithms on the Multi-Armed Bandit problem, including ε-greedy, UCB, Gradient Bandit, and Thompson Sampling.",
+      "image": "images/projects/project3.png",
+      "githubUrl": "https://github.com/Orange1301/PiMA-Reinforcement-Learning",
+      "tags": [
+        "Reinforcement Learning"
+      ]
+    }
+  ],
+  "contact": [
+    {
+      "label": "GitHub",
+      "detail": "Open Source Projects",
+      "url": "https://github.com/ledaveleito",
+      "icon": "github"
+    },
+    {
+      "label": "Facebook",
+      "detail": "Send me a message",
+      "url": "https://www.facebook.com/le.dave.319",
+      "icon": "facebook"
+    },
+    {
+      "label": "LinkedIn",
+      "detail": "Professional Network",
+      "url": "https://www.linkedin.com/in/xuan-trong-le-2049713a2/",
+      "icon": "linkedin"
+    },
+    {
+      "label": "Email",
+      "detail": "tronglx.ti.2326@gmail.com",
+      "url": "mailto:tronglx.ti.2326@gmail.com",
+      "icon": "email"
+    },
+    {
+      "label": "Instagram",
+      "detail": "Look at my posts",
+      "url": "https://www.instagram.com/ledaveleito/",
+      "icon": "instagram"
+    },
+    {
+      "label": "Discord",
+      "detail": "Let's Chat",
+      "url": "https://discordapp.com/users/114079353999169951",
+      "icon": "discord"
+    },
+    {
+      "label": "Phone Number",
+      "detail": "+84 353 509 306",
+      "url": "tel:0353509306",
+      "icon": "phone"
+    },
+    {
+      "label": "VNOI",
+      "detail": "davele",
+      "url": "https://oj.vnoi.info/user/davele",
+      "iconImage": "images/icons/vnoi.png"
+    },
+    {
+      "label": "Codeforces",
+      "detail": "fondue_mixte",
+      "url": "https://codeforces.com/profile/fondue_mixte",
+      "iconImage": "images/icons/codeforces.png"
+    },
+    {
+      "label": "LeetCode",
+      "detail": "ledaveleito",
+      "url": "https://leetcode.com/u/ledaveleito/",
+      "iconImage": "images/icons/leetcode.png"
+    }
+  ]
+}

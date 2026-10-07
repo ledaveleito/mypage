@@ -1,793 +1,365 @@
-/*==================================================
-    PERSONAL PORTFOLIO WEBSITE
-    File: js/script.js
-    Part 1/4
-
-    Contents
-
-    1. App Bootstrap
-    2. DOM Cache
-    3. Theme Manager
-==================================================*/
-
-
-/*==================================================
-1. GLOBAL DOM CACHE
-==================================================*/
-
-const DOM = {
-
-    body: null,
-
-    header: null,
-
-    navbar: null,
-
-    navLinks: null,
-
-    menuButton: null,
-
-    themeButton: null,
-
-    backToTop: null
-
+const page = document.body.dataset.page || 'home';
+const app = document.getElementById('app');
+const labels = { experience: 'Activities', blogs: 'Blogs', projects: 'Projects' };
+const contactIconClasses = {
+  github: 'fa-brands fa-github',
+  facebook: 'fa-brands fa-facebook',
+  linkedin: 'fa-brands fa-linkedin',
+  email: 'fa-solid fa-envelope',
+  instagram: 'fa-brands fa-instagram',
+  discord: 'fa-brands fa-discord',
+  phone: 'fa-solid fa-phone'
 };
 
-
-/*==================================================
-2. APP STARTUP
-==================================================*/
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    cacheDOM();
-
-    initTheme();
-
-    initMobileMenu();
-
-    initStickyHeader();
-
-    initBackToTop();
-
-    initReveal();
-
-    initSmoothScroll();
-
-    initActiveNavigation();
-    initAutoHideHeader();
-
-});
-
-
-/*==================================================
-3. CACHE DOM
-==================================================*/
-
-function cacheDOM() {
-
-    DOM.body = document.body;
-
-    DOM.header = document.querySelector(".header");
-
-    DOM.navbar = document.querySelector(".navbar");
-
-    DOM.navLinks = document.querySelector(".nav-links");
-
-    DOM.menuButton = document.getElementById("menu-toggle");
-
-    DOM.themeButton = document.getElementById("theme-toggle");
-
-    DOM.backToTop = document.getElementById("backToTop");
-
+function el(tag, className, value) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (value !== undefined && value !== null) node.textContent = String(value);
+  return node;
 }
-
-
-/*==================================================
-4. THEME MANAGER
-==================================================*/
-
-function initTheme() {
-
-    if (!DOM.themeButton) return;
-
-    const savedTheme = localStorage.getItem("theme");
-
-    const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (
-
-        savedTheme === "dark" ||
-
-        (!savedTheme && prefersDark)
-
-    ) {
-
-        DOM.body.classList.add("dark");
-
+function add(parent, ...children) {
+  children.filter(Boolean).forEach(child => parent.append(child));
+  return parent;
+}
+function asset(path) {
+  return typeof path === 'string' && /^images\/[a-z0-9/_-]+\.(png|jpe?g|webp|svg)$/i.test(path) ? path : null;
+}
+function external(url) {
+  if (typeof url !== 'string') return null;
+  try {
+    const parsed = new URL(url, location.href);
+    return ['http:', 'https:', 'mailto:', 'tel:'].includes(parsed.protocol) ? parsed.href : null;
+  } catch { return null; }
+}
+function githubRepoUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    const segments = url.pathname.split('/').filter(Boolean);
+    return url.protocol === 'https:' && url.hostname === 'github.com' && segments.length >= 2
+      ? url.href : null;
+  } catch { return null; }
+}
+function link(label, href, className) {
+  const node = el('a', className, label);
+  node.href = href;
+  if (/^https?:/i.test(href)) {
+    node.target = '_blank';
+    node.rel = 'noopener noreferrer';
+  }
+  return node;
+}
+function header(site) {
+  const root = el('header', 'site-header');
+  const inner = el('div', 'container header-inner');
+  const nav = el('nav', 'site-nav');
+  nav.id = 'site-nav';
+  nav.setAttribute('aria-label', 'Main navigation');
+  [
+    ['About', page === 'home' ? '#about' : 'index.html#about'],
+    ['Achievements', page === 'home' ? '#achievements' : 'index.html#achievements'],
+    ['Activities', 'experience.html'], ['Blogs', 'blogs.html'],
+    ['Projects', 'projects.html'],
+    ['Contact', page === 'home' ? '#contact' : 'index.html#contact']
+  ].forEach(([name, href]) => {
+    const item = link(name, href);
+    if (href === page + '.html') item.setAttribute('aria-current', 'page');
+    nav.append(item);
+  });
+  if (page === 'home') {
+    const updateActive = () => {
+      const active = ['#about', '#achievements', '#contact'].includes(location.hash) ? location.hash : '#about';
+      nav.querySelectorAll('a').forEach(item => {
+        if (item.getAttribute('href') === active) item.setAttribute('aria-current', 'page');
+        else item.removeAttribute('aria-current');
+      });
+    };
+    updateActive();
+    window.addEventListener('hashchange', updateActive);
+  }
+  const actions = el('div', 'header-actions');
+  const theme = el('button', 'icon-button', '◐');
+  theme.type = 'button';
+  theme.setAttribute('aria-label', 'Toggle color theme');
+  theme.addEventListener('click', () => {
+    const light = document.documentElement.classList.toggle('light');
+    localStorage.setItem('theme', light ? 'light' : 'dark');
+  });
+  const menu = el('button', 'icon-button menu-button', '☰');
+  menu.type = 'button';
+  menu.setAttribute('aria-label', 'Open menu');
+  menu.setAttribute('aria-controls', 'site-nav');
+  menu.setAttribute('aria-expanded', 'false');
+  menu.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a')) {
+      nav.classList.remove('open');
+      menu.setAttribute('aria-expanded', 'false');
     }
-
-    updateThemeIcon();
-
-    DOM.themeButton.addEventListener("click", toggleTheme);
-
+  });
+  add(actions, theme, menu);
+  add(inner, link(site.name, 'index.html', 'logo'), nav, actions);
+  root.append(inner);
+  document.body.prepend(root);
 }
-
-
-/*==================================================
-5. TOGGLE THEME
-==================================================*/
-
-function toggleTheme() {
-
-    DOM.body.classList.toggle("dark");
-
-    const isDark = DOM.body.classList.contains("dark");
-
-    localStorage.setItem(
-
-        "theme",
-
-        isDark ? "dark" : "light"
-
-    );
-
-    updateThemeIcon();
-
+function footer(site) {
+  const root = el('footer', 'site-footer');
+  const inner = el('div', 'container footer-inner');
+  const identity = el('div');
+  add(identity, el('strong', '', site.name), el('p', '', site.tagline));
+  add(inner, identity, el('p', '', '© ' + new Date().getFullYear() + ' ' + site.name));
+  root.append(inner);
+  document.body.append(root);
 }
-
-
-/*==================================================
-6. UPDATE THEME ICON
-==================================================*/
-
-function updateThemeIcon() {
-
-    if (!DOM.themeButton) return;
-
-    const icon = DOM.themeButton.querySelector("i");
-
-    if (!icon) return;
-
-    const isDark = DOM.body.classList.contains("dark");
-
-    icon.className = isDark
-
-        ? "fa-solid fa-sun"
-
-        : "fa-solid fa-moon";
-
+function section(id, eyebrow, title, description) {
+  const root = el('section', 'section');
+  if (id) root.id = id;
+  const inner = el('div', 'container');
+  const heading = el('div', 'section-heading');
+  add(heading, el('span', 'eyebrow', eyebrow), el('h2', '', title));
+  if (description) heading.append(el('p', '', description));
+  inner.append(heading);
+  root.append(inner);
+  return [root, inner];
 }
-
-
-/*==================================================
-7. REDUCED MOTION HELPER
-==================================================*/
-
-function prefersReducedMotion() {
-
-    return window.matchMedia(
-
-        "(prefers-reduced-motion: reduce)"
-
-    ).matches;
-
+function detailHref(type, item) {
+  return 'post.html?type=' + encodeURIComponent(type) + '&id=' + encodeURIComponent(item.id);
 }
-/*==================================================
-    PERSONAL PORTFOLIO WEBSITE
-    File: js/script.js
-    Part 2/4
-
-    Contents
-
-    8. Mobile Menu
-    9. Sticky Header
-    10. Auto Hide Header
-==================================================*/
-
-
-/*==================================================
-8. MOBILE MENU
-==================================================*/
-
-function initMobileMenu() {
-
-    if (!DOM.menuButton || !DOM.navLinks) return;
-
-    // Toggle menu
-
-    DOM.menuButton.addEventListener("click", toggleMobileMenu);
-
-    // Close when clicking a navigation link
-
-    DOM.navLinks.querySelectorAll("a").forEach(link => {
-
-        link.addEventListener("click", closeMobileMenu);
-
-    });
-
-    // Close when clicking outside
-
-    document.addEventListener("click", (event) => {
-
-        if (
-            !DOM.navLinks.classList.contains("active")
-        ) return;
-
-        const clickedMenu = DOM.navLinks.contains(event.target);
-
-        const clickedButton = DOM.menuButton.contains(event.target);
-
-        if (!clickedMenu && !clickedButton) {
-
-            closeMobileMenu();
-
-        }
-
-    });
-
-    // ESC key
-
-    document.addEventListener("keydown", (event) => {
-
-        if (event.key === "Escape") {
-
-            closeMobileMenu();
-
-        }
-
-    });
-
-    // Reset when resizing to desktop
-
-    window.addEventListener("resize", () => {
-
-        if (window.innerWidth > 768) {
-
-            closeMobileMenu();
-
-        }
-
-    });
-
+function sourceLink(url) {
+  const source = link('', url, 'source-link');
+  const icon = el('i', 'fa-brands fa-github');
+  icon.setAttribute('aria-hidden', 'true');
+  add(source, icon, el('span', '', 'Source'));
+  source.setAttribute('aria-label', 'View source on GitHub');
+  return source;
 }
-
-
-/*==================================================
-9. TOGGLE MENU
-==================================================*/
-
-function toggleMobileMenu() {
-
-    DOM.navLinks.classList.toggle("active");
-
-    DOM.menuButton.classList.toggle("active");
-
-    document.body.classList.toggle(
-
-        "menu-open",
-
-        DOM.navLinks.classList.contains("active")
-
-    );
-
+function card(type, item) {
+  const root = el('article', 'content-card');
+  const visual = el('div', 'card-visual');
+  const image = asset(item.image);
+  if (image) {
+    const img = el('img');
+    img.src = image;
+    img.alt = '';
+    img.loading = 'lazy';
+    visual.append(img);
+  } else visual.append(el('span', '', (item.title || '?').charAt(0).toUpperCase()));
+  const body = el('div', 'card-body');
+  if (item.meta) body.append(el('span', 'card-meta', item.meta));
+  add(body, el('h3', '', item.title), el('p', '', item.summary));
+  if (Array.isArray(item.tags)) {
+    const tags = el('div', 'tags');
+    item.tags.forEach(tag => tags.append(el('span', '', tag)));
+    body.append(tags);
+  }
+  if (type === 'projects') {
+    const actions = el('div', 'project-actions');
+    actions.append(link('View details →', detailHref(type, item), 'text-link'));
+    const repo = githubRepoUrl(item.githubUrl);
+    if (repo) actions.append(sourceLink(repo));
+    body.append(actions);
+  } else {
+    body.append(link('View details →', detailHref(type, item), 'text-link'));
+  }
+  add(root, visual, body);
+  return root;
 }
-
-
-/*==================================================
-10. CLOSE MENU
-==================================================*/
-
-function closeMobileMenu() {
-
-    DOM.navLinks.classList.remove("active");
-
-    DOM.menuButton.classList.remove("active");
-
-    document.body.classList.remove("menu-open");
-
+function grid(type, items, limit) {
+  const root = el('div', 'card-grid');
+  const visible = limit ? items.slice(0, limit) : items;
+  visible.forEach(item => root.append(card(type, item)));
+  if (!visible.length) root.append(el('p', 'empty-state', 'No entries yet. Add one in data/content.json.'));
+  return root;
 }
-
-
-/*==================================================
-11. STICKY HEADER
-==================================================*/
-
-function initStickyHeader() {
-
-    if (!DOM.header) return;
-
-    const onScroll = () => {
-
-        if (window.scrollY > 20) {
-
-            DOM.header.classList.add("scrolled");
-
-        } else {
-
-            DOM.header.classList.remove("scrolled");
-
-        }
-
-    };
-
-    onScroll();
-
-    window.addEventListener(
-
-        "scroll",
-
-        throttle(onScroll, 50),
-
-        { passive: true }
-
-    );
-
-}
-
-
-/*==================================================
-12. AUTO HIDE HEADER
-==================================================*/
-
-function initAutoHideHeader() {
-
-    if (!DOM.header) return;
-
-    // Không auto-hide trên mobile
-
-    if (window.innerWidth <= 768) return;
-
-    let lastScroll = window.scrollY;
-
-    const onScroll = () => {
-
-        const current = window.scrollY;
-
-        if (current < 100) {
-
-            DOM.header.classList.remove("hide");
-
-            lastScroll = current;
-
-            return;
-
-        }
-
-        if (current > lastScroll) {
-
-            DOM.header.classList.add("hide");
-
-        } else {
-
-            DOM.header.classList.remove("hide");
-
-        }
-
-        lastScroll = current;
-
-    };
-
-    window.addEventListener(
-
-        "scroll",
-
-        throttle(onScroll, 80),
-
-        { passive: true }
-
-    );
-
-}
-/*==================================================
-    PERSONAL PORTFOLIO WEBSITE
-    File: js/script.js
-    Part 3/4
-
-    Contents
-
-    13. Back To Top
-    14. Smooth Scroll
-    15. Reveal Animation
-==================================================*/
-
-
-/*==================================================
-13. BACK TO TOP
-==================================================*/
-
-function initBackToTop() {
-
-    if (!DOM.backToTop) return;
-
-    const toggleButton = () => {
-
-        if (window.scrollY > 500) {
-
-            DOM.backToTop.classList.add("show");
-
-        } else {
-
-            DOM.backToTop.classList.remove("show");
-
-        }
-
-    };
-
-    toggleButton();
-
-    window.addEventListener(
-
-        "scroll",
-
-        throttle(toggleButton, 50),
-
-        { passive:true }
-
-    );
-
-    DOM.backToTop.addEventListener(
-
-        "click",
-
-        () => {
-
-            window.scrollTo({
-
-                top:0,
-
-                behavior: prefersReducedMotion()
-
-                    ? "auto"
-
-                    : "smooth"
-
-            });
-
-        }
-
-    );
-
-}
-
-
-/*==================================================
-14. SMOOTH SCROLL
-==================================================*/
-
-function initSmoothScroll() {
-
-    const links = document.querySelectorAll(
-
-        'a[href^="#"]'
-
-    );
-
-    links.forEach(link => {
-
-        link.addEventListener(
-
-            "click",
-
-            function(event){
-
-                const href = this.getAttribute("href");
-
-                if (
-
-                    href === "#" ||
-
-                    href.length <= 1
-
-                ) return;
-
-                const target = document.querySelector(href);
-
-                if (!target) return;
-
-                event.preventDefault();
-
-                target.scrollIntoView({
-
-                    behavior: prefersReducedMotion()
-
-                        ? "auto"
-
-                        : "smooth",
-
-                    block:"start"
-
-                });
-
-            }
-
-        );
-
-    });
-
-}
-
-
-/*==================================================
-15. REVEAL ANIMATION
-==================================================*/
-
-function initReveal() {
-
-    if (prefersReducedMotion()) {
-
-        document
-
-            .querySelectorAll(
-
-                ".reveal,.reveal-left,.reveal-right,.reveal-scale"
-
-            )
-
-            .forEach(element => {
-
-                element.classList.add("show");
-
-            });
-
-        return;
-
+function home(data) {
+  const site = data.site;
+  const hero = el('section', 'hero');
+  const inner = el('div', 'container hero-inner');
+  const copy = el('div');
+  add(copy, el('span', 'eyebrow', 'Hello, I’m'), el('h1', '', site.name),
+    el('p', 'hero-tagline', site.tagline), el('p', 'hero-intro', site.intro));
+  const buttons = el('div', 'button-row');
+  if (site.resume === 'resume.pdf') buttons.append(link('View resume ↗', site.resume, 'button button-primary'));
+  buttons.append(link('Contact me', '#contact', 'button button-secondary'));
+  copy.append(buttons);
+  const portrait = el('div', 'avatar-frame');
+  const avatar = asset(site.avatar);
+  if (avatar) {
+    const img = el('img');
+    img.src = avatar;
+    img.alt = site.name;
+    portrait.append(img);
+  }
+  add(inner, copy, portrait);
+  hero.append(inner);
+  app.append(hero);
+
+  const [aboutRoot, aboutInner] = section('about', 'About', data.about.title, data.about.intro);
+  const aboutGrid = el('div', 'about-grid');
+  (data.about.cards || []).forEach(item => {
+    const box = el('article', 'info-card');
+    add(box, el('h3', '', item.title), el('p', '', item.text));
+    aboutGrid.append(box);
+  });
+  aboutInner.append(aboutGrid);
+  app.append(aboutRoot);
+
+  const [awardRoot, awardInner] = section('achievements', 'Achievements', 'Selected achievements', 'Milestones from my academic journey.');
+  awardRoot.classList.add('section-muted');
+  const awards = el('div', 'award-grid');
+  (data.achievements || []).forEach(item => {
+    const box = el('article', 'award-card');
+    add(box, el('span', 'award-icon', item.icon || '★'), el('h3', '', item.title), el('p', '', item.summary));
+    awards.append(box);
+  });
+  awardInner.append(awards);
+  app.append(awardRoot);
+
+  [
+    ['experience', 'Selected activities'],
+    ['blogs', 'Latest writing'],
+    ['projects', 'Selected projects']
+  ].forEach(([type, title], index) => {
+    const [root, content] = section('', labels[type], title);
+    if (index % 2) root.classList.add('section-muted');
+    content.append(grid(type, data[type] || [], 3));
+    content.append(link('View all ' + labels[type] + ' →', type + '.html', 'section-link'));
+    app.append(root);
+  });
+
+  const [contactRoot, contactInner] = section('contact', 'Contact', 'Let’s connect', 'Reach out for collaboration, opportunities, or a conversation.');
+  const contacts = el('div', 'contact-grid');
+  (data.contact || []).forEach(item => {
+    const href = external(item.url);
+    if (!href) return;
+    const box = link('', href, 'contact-card');
+    const icon = el('div', 'contact-icon');
+    const imagePath = asset(item.iconImage);
+    if (imagePath) {
+      const image = el('img');
+      image.src = imagePath;
+      image.alt = '';
+      image.loading = 'lazy';
+      icon.append(image);
+    } else if (Object.hasOwn(contactIconClasses, item.icon)) {
+      const symbol = el('i', contactIconClasses[item.icon]);
+      symbol.setAttribute('aria-hidden', 'true');
+      icon.append(symbol);
     }
-
-    const observer = new IntersectionObserver(
-
-        (entries) => {
-
-            entries.forEach(entry => {
-
-                if (!entry.isIntersecting) return;
-
-                entry.target.classList.add("show");
-
-                observer.unobserve(entry.target);
-
-            });
-
-        },
-
-        {
-
-            threshold:0.15,
-
-            rootMargin:"0px 0px -80px 0px"
-
-        }
-
-    );
-
-    document
-
-        .querySelectorAll(
-
-            ".reveal,.reveal-left,.reveal-right,.reveal-scale"
-
-        )
-
-        .forEach(element => {
-
-            observer.observe(element);
-
-        });
-
+    add(box, icon, el('strong', '', item.label), el('span', '', item.detail));
+    contacts.append(box);
+  });
+  contactInner.append(contacts);
+  app.append(contactRoot);
 }
-
-
-/*==================================================
-16. STAGGER HELPER
-==================================================*/
-
-function revealChildren(container){
-
-    if(!container) return;
-
-    [...container.children].forEach(
-
-        (child,index)=>{
-
-            child.style.transitionDelay=
-
-                `${index*100}ms`;
-
-            child.classList.add("show");
-
-        }
-
-    );
-
+function listing(data, type) {
+  const descriptions = {
+    experience: 'Research, mentoring, development, and community work.',
+    blogs: 'Thoughts on programming, AI, learning, and building.',
+    projects: 'Experiments and projects across software and AI.'
+  };
+  const [root, inner] = section('', labels[type], labels[type], descriptions[type]);
+  root.classList.add('listing-section');
+  inner.append(grid(type, data[type] || []));
+  app.append(root);
+  document.title = labels[type] + ' | ' + data.site.name;
 }
-/*==================================================
-    PERSONAL PORTFOLIO WEBSITE
-    File: js/script.js
-    Part 4/4
-
-    Contents
-
-    17. Active Navigation
-    18. Debounce
-    19. Throttle
-    20. Helpers
-==================================================*/
-
-
-/*==================================================
-17. ACTIVE NAVIGATION
-==================================================*/
-
-function initActiveNavigation() {
-
-    if (!DOM.navLinks) return;
-
-    const sections = document.querySelectorAll("section[id]");
-
-    if (sections.length === 0) return;
-
-    const navItems = DOM.navLinks.querySelectorAll("a");
-
-    const observer = new IntersectionObserver(
-
-        (entries) => {
-
-            entries.forEach(entry => {
-
-                if (!entry.isIntersecting) return;
-
-                const id = entry.target.id;
-
-                navItems.forEach(link => {
-
-                    link.classList.remove("active");
-
-                    if (
-                        link.getAttribute("href") === "#" + id
-                    ) {
-
-                        link.classList.add("active");
-
-                    }
-
-                });
-
-            });
-
-        },
-
-        {
-
-            rootMargin: "-35% 0px -55% 0px",
-
-            threshold: 0
-
-        }
-
-    );
-
-    sections.forEach(section => {
-
-        observer.observe(section);
-
-    });
-
+function block(item) {
+  if (!item || typeof item !== 'object') return null;
+  switch (item.type) {
+    case 'heading': return el('h2', '', item.text);
+    case 'paragraph': return el('p', '', item.text);
+    case 'quote': return el('blockquote', '', item.text);
+    case 'code': {
+      const pre = el('pre');
+      pre.append(el('code', '', item.text));
+      return pre;
+    }
+    case 'list': {
+      const list = el(item.ordered ? 'ol' : 'ul');
+      (item.items || []).forEach(value => list.append(el('li', '', value)));
+      return list;
+    }
+    case 'image': {
+      const src = asset(item.src);
+      if (!src) return null;
+      const figure = el('figure');
+      const image = el('img');
+      image.src = src;
+      image.alt = item.alt || '';
+      figure.append(image);
+      if (item.caption) figure.append(el('figcaption', '', item.caption));
+      return figure;
+    }
+    case 'link': {
+      const href = external(item.url);
+      return href ? link(item.text || href, href, 'article-link') : null;
+    }
+    default: return null;
+  }
 }
-
-
-/*==================================================
-18. DEBOUNCE
-==================================================*/
-
-function debounce(callback, delay = 150) {
-
-    let timer;
-
-    return (...args) => {
-
-        clearTimeout(timer);
-
-        timer = setTimeout(() => {
-
-            callback(...args);
-
-        }, delay);
-
+function detail(data) {
+  const params = new URLSearchParams(location.search);
+  const type = params.get('type');
+  const id = params.get('id');
+  const item = Object.hasOwn(labels, type) && (data[type] || []).find(entry => entry.id === id);
+  const root = el('article', 'article-page');
+  const inner = el('div', 'container article-shell');
+  if (!item) {
+    add(inner, el('h1', '', 'Content not found'), link('← Back to home', 'index.html', 'text-link'));
+  } else {
+    add(inner, link('← ' + labels[type], type + '.html', 'back-link'),
+      el('span', 'eyebrow', item.meta || labels[type]),
+      el('h1', '', item.title), el('p', 'article-summary', item.summary));
+    if (Array.isArray(item.tags) && item.tags.length) {
+      const tags = el('div', 'tags');
+      item.tags.forEach(tag => tags.append(el('span', '', tag)));
+      inner.append(tags);
+    }
+    if (type === 'projects') {
+      const repo = githubRepoUrl(item.githubUrl);
+      if (repo) inner.append(sourceLink(repo));
+    }
+    const blocks = Array.isArray(item.content) ? item.content : [];
+    const uniqueBlocks = blocks.filter((entry, index) =>
+      !(index === 0 && entry.type === 'paragraph' && entry.text === item.summary));
+    if (uniqueBlocks.length) {
+      const body = el('div', 'article-body');
+      uniqueBlocks.forEach(entry => { const node = block(entry); if (node) body.append(node); });
+      inner.append(body);
+    }
+    document.title = item.title + ' | ' + data.site.name;
+  }
+  root.append(inner);
+  app.append(root);
+}
+async function start() {
+  if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('light');
+  let stage = 'fetch';
+  try {
+    const response = await fetch('data/content.json', { cache: 'no-cache' });
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    stage = 'parse';
+    const data = await response.json();
+    stage = 'render';
+    header(data.site);
+    if (page === 'home') home(data);
+    else if (page === 'post') detail(data);
+    else if (labels[page]) listing(data, page);
+    footer(data.site);
+    if (location.hash) requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+  } catch (error) {
+    console.error('Could not load portfolio content:', error);
+    const messages = {
+      fetch: 'Could not load data/content.json. Start the local preview server, then refresh this page.',
+      parse: 'data/content.json contains invalid JSON. Check its commas and brackets, then refresh this page.',
+      render: 'Could not render the page. Check the browser console for details.'
     };
-
+    app.append(el('p', 'load-error', messages[stage]));
+  }
 }
-
-
-/*==================================================
-19. THROTTLE
-==================================================*/
-
-function throttle(callback, limit = 100) {
-
-    let waiting = false;
-
-    return (...args) => {
-
-        if (waiting) return;
-
-        callback(...args);
-
-        waiting = true;
-
-        setTimeout(() => {
-
-            waiting = false;
-
-        }, limit);
-
-    };
-
-}
-
-
-/*==================================================
-20. HELPERS
-==================================================*/
-
-function isMobile() {
-
-    return window.innerWidth <= 768;
-
-}
-
-function isDesktop() {
-
-    return window.innerWidth > 768;
-
-}
-
-function $(selector) {
-
-    return document.querySelector(selector);
-
-}
-
-function $$(selector) {
-
-    return document.querySelectorAll(selector);
-
-}
-
-
-/*==================================================
-21. WINDOW EVENTS
-==================================================*/
-
-window.addEventListener(
-
-    "resize",
-
-    debounce(() => {
-
-        if (isDesktop()) {
-
-            closeMobileMenu();
-
-        }
-
-    })
-
-);
-
-
-/*==================================================
-22. PAGE LOADED
-==================================================*/
-
-window.addEventListener("load", () => {
-
-    document.body.classList.add("loaded");
-
-});
-
-
-/*==================================================
-23. END OF FILE
-==================================================*/
+start();
