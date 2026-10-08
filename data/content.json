@@ -188,6 +188,13 @@
       "githubUrl": "https://github.com/Orange1301/PiMA-Reinforcement-Learning",
       "tags": [
         "Reinforcement Learning"
+      ],
+      "content":[
+        {
+          "type": "link",
+          "text": "Report Link",
+          "url" : "https://drive.google.com/drive/folders/1URFrPHF1bITzp16KWnw1NyweJCZvtFkE?fbclid=IwY2xjawUE1zpwZG9mBWV4dG4DYWVtAjEwAGJyaWQRMVV5MGFOYVRCT3FVd2RJMzZzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeeWhvycAo-bQjTnCRuI9oGGj7JOo15CSvma7TRWwZMT2V6qSpm0ixzj_zZz8_aem_dBACFogh529IJuwbQkJcIg"
+        }
       ]
     }
   ],
